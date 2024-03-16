@@ -1,0 +1,27 @@
+# create a simple service to run the neo4j database
+version: '3.1'
+services:
+  app:
+    image: neo4j:5.18.0-enterprise
+    # mounts named volumes
+    volumes:
+      - neo4jdata:/data
+      - neo4jlogs:/logs
+      - ./neo4j_plugins:/plugins
+    environment:
+      - NEO4J_server_memory_pagecache_size=1G
+      - NEO4J_server_bolt_telemetry_enabled=false
+      - NEO4J_AUTH=${NEO4J_USERNAME}/${NEO4J_PASSWORD}
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_PLUGINS=["apoc","genai"]
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+
+    ports:
+      - 7474:7474
+      - 7687:7687
+
+# create volume
+volumes:
+  neo4jdata:
+  neo4jlogs:
