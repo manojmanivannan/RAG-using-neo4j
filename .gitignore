@@ -2,3 +2,4 @@
 venv/
 .venv
 *.jar
+neo4j_data/
