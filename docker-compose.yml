@@ -2,7 +2,7 @@
 version: '3.1'
 services:
   app:
-    image: neo4j:5.18.0-enterprise
+    build: .
     # mounts named volumes
     volumes:
       - neo4jdata:/data
@@ -11,7 +11,8 @@ services:
     environment:
       - NEO4J_server_memory_pagecache_size=1G
       - NEO4J_server_bolt_telemetry_enabled=false
-      - NEO4J_AUTH=${NEO4J_USERNAME}/${NEO4J_PASSWORD}
+      # - NEO4J_AUTH=${NEO4J_USERNAME}/${NEO4J_PASSWORD}
+      - NEO4J_AUTH=none
       - NEO4J_apoc_export_file_enabled=true
       - NEO4J_apoc_import_file_enabled=true
       - NEO4J_PLUGINS=["apoc","genai"]
